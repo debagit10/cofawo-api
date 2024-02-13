@@ -8,6 +8,7 @@ const signUp = async (req, res) => {
       [name, password]
     );
     res.json(response);
+    console.log(response);
   } catch (error) {
     res.send(error);
   }
