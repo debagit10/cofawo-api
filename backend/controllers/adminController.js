@@ -1,7 +1,7 @@
 const pool = require("../db.js");
 
 const signUp = async (req, res) => {
-  const [name, password] = req.body;
+  const { name, password } = req.body;
   try {
     const response = await pool.query(
       "INSERT INTO admin name, password VALUES($1,$2)",
