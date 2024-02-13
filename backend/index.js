@@ -16,6 +16,8 @@ app.get("/test", (req, res) => {
   res.send("Api working");
 });
 
+app.post("");
+
 app.post("/login", async (req, res) => {
   const { adminID, password } = req.body;
   try {
