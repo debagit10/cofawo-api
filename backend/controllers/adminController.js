@@ -1,14 +1,19 @@
 const pool = require("../db.js");
+const jwt = require("jsonwebtoken");
 
 const signUp = async (req, res) => {
   const { name, password } = req.body;
   try {
     const response = await pool.query(
-      "INSERT INTO admin name, password VALUES($1,$2)",
+      "INSERT INTO admin(name, password) VALUES($1,$2)",
       [name, password]
     );
-    res.json(response);
-    console.log(response);
+
+    const token = jwt.sign({ name }, "secret", { expiresIn: "1hr" });
+
+    if (response.command === "INSERT") {
+      res.json({ message: "Sign up successful", token });
+    }
   } catch (error) {
     res.send(error);
   }
@@ -18,7 +23,7 @@ const login = async (req, res) => {
   const { name, password } = req.body;
   try {
     const admin = await pool.query("SELECT * FROM admin WHERE name=$1", [name]);
-    console.log(admin);
+    //res.json(admin);
     if (!admin.rows.length) {
       res.json({ detail: "Wrong adminID" });
     }
@@ -28,7 +33,7 @@ const login = async (req, res) => {
     if (admin.rows[0].password === password) {
       res.json({ success: "Login successful", token });
     } else {
-      res.json({ error: "Incorrect password" });
+      res.send({ error: "Incorrect password" });
     }
   } catch (error) {
     console.log(error);
