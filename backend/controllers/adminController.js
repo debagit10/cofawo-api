@@ -41,4 +41,21 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { signUp, login };
+const changePassword = async (req, res) => {
+  const { name, newPassword } = req.body;
+  try {
+    const response = await pool.query(
+      "UPDATE admin SET password = $1 WHERE name = $2",
+      [newPassword, name]
+    );
+
+    if (response.command === "UPDATE") {
+      res.json({ message: "Password changed successfully" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+};
+
+module.exports = { signUp, login, changePassword };
