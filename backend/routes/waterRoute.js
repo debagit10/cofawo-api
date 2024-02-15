@@ -1,6 +1,10 @@
 const router = require("express").Router();
-const { addWaterData } = require("../controllers/waterController");
+const {
+  addWaterData,
+  getWaterData,
+} = require("../controllers/waterController");
 
-router.post("/addWaterData", addWaterData);
+router.post("/add", addWaterData);
+router.get("/get", getWaterData);
 
 module.exports = router;

@@ -19,4 +19,13 @@ const addWaterData = async (req, res) => {
   }
 };
 
-module.exports = { addWaterData };
+const getWaterData = async (req, res) => {
+  try {
+    const response = await pool.query("SELECT * FROM water");
+    res.json(response.rows);
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+module.exports = { addWaterData, getWaterData };
