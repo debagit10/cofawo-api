@@ -4,6 +4,7 @@ const pool = require("./db");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 const adminRoutes = require("./routes/adminRoute.js");
+const waterRoutes = require("./routes/waterRoute");
 
 const PORT = 5000;
 
@@ -24,6 +25,7 @@ app.get("/test", (req, res) => {
 });
 
 app.use("/api/admin", adminRoutes);
+app.use("/api/water", waterRoutes);
 
 // app.post("/login", async (req, res) => {
 //   const { adminID, password } = req.body;
