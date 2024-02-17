@@ -6,19 +6,21 @@ const { v4: uuidv4 } = require("uuid");
 const adminRoutes = require("./routes/adminRoute.js");
 const waterRoutes = require("./routes/waterRoute");
 
+const CLIENT_URL = process.env.CLIENT_URL;
+
 const PORT = 5000;
 
 const app = express();
 
 app.use(express.json());
 
-// const corsOptions = {
-//   origin: "",
-//   methods: ["GET", "POST", "PUT", "DELETE", "UPDATE"],
-//   allowedHeaders: ["Content-type"],
-// };
+const corsOptions = {
+  origin: CLIENT_URL,
+  methods: ["GET", "POST", "PUT", "DELETE", "UPDATE"],
+  allowedHeaders: ["Content-type"],
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.get("/test", (req, res) => {
   res.send("Api working");
