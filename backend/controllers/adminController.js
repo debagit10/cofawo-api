@@ -20,9 +20,11 @@ const signUp = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { name, password } = req.body;
+  const { adminID, password } = req.body;
   try {
-    const admin = await pool.query("SELECT * FROM admin WHERE name=$1", [name]);
+    const admin = await pool.query("SELECT * FROM admin WHERE name=$1", [
+      adminID,
+    ]);
     //res.json(admin);
     if (!admin.rows.length) {
       res.json({ detail: "Wrong adminID" });
