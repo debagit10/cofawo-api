@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 const adminRoutes = require("./routes/adminRoute.js");
 const waterRoutes = require("./routes/waterRoute");
 const foodRoutes = require("./routes/foodRoute");
+const reportRoutes = require("./routes/reportRoutes");
 
 const CLIENT_URL = process.env.CLIENT_URL;
 
@@ -30,6 +31,7 @@ app.get("/test", (req, res) => {
 app.use("/api/admin", adminRoutes);
 app.use("/api/water", waterRoutes);
 app.use("/api/food", foodRoutes);
+app.use("/api/report", reportRoutes);
 
 // app.post("/login", async (req, res) => {
 //   const { adminID, password } = req.body;
