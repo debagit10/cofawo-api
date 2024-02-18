@@ -21,21 +21,21 @@ const signUp = async (req, res) => {
 
 const login = async (req, res) => {
   const { adminID, password } = req.body;
+  const token = jwt.sign({ adminID }, "secret", { expiresIn: "1hr" });
+
   try {
     const admin = await pool.query("SELECT * FROM admin WHERE name=$1", [
       adminID,
     ]);
     //res.json(admin);
     if (!admin.rows.length) {
-      res.json({ detail: "Wrong adminID" });
-    }
-
-    const token = jwt.sign({ name }, "secret", { expiresIn: "1hr" });
-
-    if (admin.rows[0].password === password) {
-      res.json({ success: "Login successful", token });
+      res.json({ error: "Wrong adminID" });
     } else {
-      res.send({ error: "Incorrect password" });
+      if (admin.rows[0].password === password) {
+        res.json({ success: "Login successful", token });
+      } else {
+        res.json({ error: "Incorrect password" });
+      }
     }
   } catch (error) {
     console.log(error);
