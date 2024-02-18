@@ -7,6 +7,7 @@ const adminRoutes = require("./routes/adminRoute.js");
 const waterRoutes = require("./routes/waterRoute");
 const foodRoutes = require("./routes/foodRoute");
 const reportRoutes = require("./routes/reportRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 
 const CLIENT_URL = process.env.CLIENT_URL;
 
@@ -32,6 +33,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/water", waterRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/report", reportRoutes);
+app.use("/api/comment", commentRoutes);
 
 // app.post("/login", async (req, res) => {
 //   const { adminID, password } = req.body;
